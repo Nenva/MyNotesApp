@@ -1,6 +1,8 @@
-package mgm.u.mynotesapp.data
+package mgm.u.mynotesapp.repository
 
 import androidx.lifecycle.LiveData
+import mgm.u.mynotesapp.data.NoteDao
+import mgm.u.mynotesapp.model.Note
 
 class NoteRepository(
     private val noteDao: NoteDao
@@ -9,5 +11,9 @@ class NoteRepository(
 
     suspend fun addNote(note: Note) {
         noteDao.addNote(note)
+    }
+
+    suspend fun updateNote(note: Note) {
+        noteDao.updateNote(note)
     }
 }

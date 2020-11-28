@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import mgm.u.mynotesapp.R
-import mgm.u.mynotesapp.data.NoteViewModel
+import mgm.u.mynotesapp.viewmodel.NoteViewModel
 import mgm.u.mynotesapp.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {

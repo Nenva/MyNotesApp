@@ -4,11 +4,11 @@ package mgm.u.mynotesapp.fragments.list
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.custom_view.view.*
-import kotlinx.android.synthetic.main.fragment_add.view.*
 import mgm.u.mynotesapp.R
-import mgm.u.mynotesapp.data.Note
+import mgm.u.mynotesapp.model.Note
 
 class NoteAdapter: RecyclerView.Adapter<NoteAdapter.MyViewHolder>() {
 
@@ -31,6 +31,12 @@ class NoteAdapter: RecyclerView.Adapter<NoteAdapter.MyViewHolder>() {
         holder.itemView.id_note.text = currentItem.id.toString()
         holder.itemView.title_note.text = currentItem.title
         holder.itemView.content_note.text = currentItem.content
+
+        holder.itemView.card_view.setOnClickListener {
+            val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
+        }
+
     }
 
     fun setData(note: List<Note>) {

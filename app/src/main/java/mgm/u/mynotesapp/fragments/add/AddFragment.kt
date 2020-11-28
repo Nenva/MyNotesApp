@@ -10,15 +10,11 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.custom_view.*
 import kotlinx.android.synthetic.main.fragment_add.*
 import mgm.u.mynotesapp.R
-import mgm.u.mynotesapp.data.Note
-import mgm.u.mynotesapp.data.NoteViewModel
+import mgm.u.mynotesapp.model.Note
+import mgm.u.mynotesapp.viewmodel.NoteViewModel
 import mgm.u.mynotesapp.databinding.FragmentAddBinding
-import mgm.u.mynotesapp.databinding.FragmentListBinding
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class AddFragment : Fragment() {
 

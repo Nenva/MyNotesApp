@@ -1,13 +1,14 @@
-package mgm.u.mynotesapp.data
+package mgm.u.mynotesapp.viewmodel
 
 import android.app.Application
-import androidx.databinding.Bindable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import mgm.u.mynotesapp.data.NoteDatabase
+import mgm.u.mynotesapp.repository.NoteRepository
+import mgm.u.mynotesapp.model.Note
 
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -23,6 +24,12 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     fun addNote(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addNote(note)
+        }
+    }
+
+    fun updateNote(note: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateNote(note)
         }
     }
 }
