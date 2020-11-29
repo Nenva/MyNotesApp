@@ -1,14 +1,15 @@
 package mgm.u.mynotesapp.fragments.list
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import mgm.u.mynotesapp.R
 import mgm.u.mynotesapp.viewmodel.NoteViewModel
@@ -42,6 +43,35 @@ class ListFragment : Fragment() {
             it.findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
 
+        setHasOptionsMenu(true)
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_delete) {
+            deleteAllNotes()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteAllNotes() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _,_ ->
+            myNoteViewModel.deleteAllNotes()
+            Toast.makeText(
+                requireContext(),
+                "Successfully removed all notes",
+                Toast.LENGTH_LONG).show()
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        builder.setTitle("Delete all notes?")
+        builder.setMessage("Are you sure you want to delete all notes?")
+        builder.create().show()
     }
 }

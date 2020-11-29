@@ -1,11 +1,10 @@
 package mgm.u.mynotesapp.fragments.update
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -39,6 +38,8 @@ class UpdateFragment : Fragment() {
             updateNote()
         }
 
+        setHasOptionsMenu(true)
+
         return binding.root
     }
 
@@ -58,5 +59,33 @@ class UpdateFragment : Fragment() {
 
     private fun inputCheck(title: String, content: String): Boolean {
         return !(TextUtils.isEmpty(title) && TextUtils.isEmpty(content))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_delete) {
+            deleteUser()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteUser() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _,_ ->
+            myNoteViewModel.deleteNote(args.currentNote)
+            Toast.makeText(
+                requireContext(),
+                "Successfully removed: ${args.currentNote.title}",
+                Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        builder.setTitle("Delete ${args.currentNote.title}?")
+        builder.setMessage("Are you sure you want to delete ${args.currentNote.title}?")
+        builder.create().show()
     }
 }
